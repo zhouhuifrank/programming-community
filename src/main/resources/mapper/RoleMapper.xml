@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.frankzhou.community.mapper.RoleMapper">
+
+    <resultMap id="RoleMap" type="com.frankzhou.community.model.entity.Role">
+            <id property="id" column="id" jdbcType="BIGINT" javaType="java.lang.Long"/>
+            <result property="roleName" column="role_name" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+            <result property="status" column="status" jdbcType="VARCHAR" javaType="java.lang.String"/>
+    </resultMap>
+
+    <sql id="QueryColumn">
+        id,role_name,create_time,update_time,status
+    </sql>
+
+</mapper>
