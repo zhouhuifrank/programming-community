@@ -1,0 +1,11 @@
+package com.frankzhou.community.service;
+
+/**
+ * @author This.FrankZhou
+ * @version 1.0
+ * @description 角色管理业务逻辑
+ * @date 2023-06-18
+ */
+public interface RoleService {
+
+}
