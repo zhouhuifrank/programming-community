@@ -4,27 +4,113 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.frankzhou.community.mapper.UserCollectionMapper">
 
-    <resultMap id="BaseResultMap" type="com.frankzhou.community.model.entity.UserCollection">
-            <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="collectionId" column="collection_id" jdbcType="BIGINT"/>
-            <result property="collectionName" column="collection_name" jdbcType="VARCHAR"/>
-            <result property="collectionDesc" column="collection_desc" jdbcType="VARCHAR"/>
-            <result property="permission" column="permission" jdbcType="INTEGER"/>
-            <result property="isDefault" column="is_default" jdbcType="INTEGER"/>
-            <result property="subscribeCount" column="subscribe_count" jdbcType="INTEGER"/>
-            <result property="articleCount" column="article_count" jdbcType="INTEGER"/>
-            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
-            <result property="createUser" column="create_user" jdbcType="VARCHAR"/>
-            <result property="updateUser" column="update_user" jdbcType="VARCHAR"/>
-            <result property="status" column="status" jdbcType="VARCHAR"/>
+    <resultMap id="collectionMap" type="com.frankzhou.community.model.entity.UserCollection">
+            <id property="id" column="id" jdbcType="BIGINT" javaType="java.lang.Long"/>
+            <result property="userId" column="user_id" jdbcType="BIGINT" javaType="java.lang.Long"/>
+            <result property="collectionId" column="collection_id" jdbcType="BIGINT" javaType="java.lang.Long"/>
+            <result property="collectionName" column="collection_name" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <result property="collectionDesc" column="collection_desc" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <result property="permission" column="permission" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <result property="isDefault" column="is_default" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <result property="subscribeCount" column="subscribe_count" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <result property="articleCount" column="article_count" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
     </resultMap>
 
-    <sql id="Base_Column_List">
-        id,collection_id,collection_name,
+    <sql id="queryColumn">
+        id,user_id,collection_id,collection_name,
         collection_desc,permission,is_default,
-        subscribe_count,article_count,create_time,
-        update_time,create_user,update_user,
-        status
+        subscribe_count,article_count,create_time,update_time
     </sql>
+
+    <sql id="whereCondition">
+        <where>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="collectionId != null">
+                and collection_id = #{collectionId}
+            </if>
+            <if test="collectionName != null">
+                and collection_name = #{collectionName}
+            </if>
+            <if test="collectionDesc != null">
+                and collection_desc = #{collectionDesc}
+            </if>
+            <if test="permission != null">
+                and permission = #{permission}
+            </if>
+            <if test="isDefault != null">
+                and is_default = #{isDefault}
+            </if>
+        </where>
+    </sql>
+
+    <sql id="orderCondition">
+        <if test="orderBy != null and orderBy != ''">
+            order by #{orderBy}
+            <if test="sort = 'DESC'">
+                DESC
+            </if>
+        </if>
+    </sql>
+
+    <!-- List<UserCollection> queryListByCond(UserCollectionQueryDTO queryDTO) -->
+    <select id="queryListByCond" parameterType="com.frankzhou.community.model.dto.collection.UserCollectionQueryDTO" resultMap="collectionMap">
+        select <include refid="queryColumn"/>
+        from user_collection
+        <include refid="whereCondition"/>
+        <include refid="orderCondition"/>
+    </select>
+
+    <!-- List<UserCollection> queryListByPage(UserCollectionQueryDTO queryDTO) -->
+    <select id="queryListByPage" parameterType="com.frankzhou.community.model.dto.collection.UserCollectionQueryDTO" resultMap="collectionMap">
+        select <include refid="queryColumn"/>
+        from user_collection
+        <include refid="whereCondition"/>
+        <include refid="orderCondition"/>
+        limit #{startRow},#{pageSize}
+    </select>
+
+    <!-- Integer queryPageCount(UserCollectionQueryDTO queryDTO) -->
+    <select id="queryPageCount" parameterType="com.frankzhou.community.model.dto.collection.UserCollectionQueryDTO" resultType="java.lang.Integer">
+        select count(*)
+        from user_collection
+        <include refid="whereCondition"/>
+    </select>
+
+    <!-- Integer batchDelete(@Param("list") List<Long> idList) -->
+    <delete id="batchDelete" parameterType="list">
+        update user_collection
+        set status = "DELETED"
+        where id in
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <!-- Integer batchInsert(@Param("list") List<UserCollection> collectionList) -->
+    <insert id="batchInsert" parameterType="list">
+        insert into
+        user_collection
+        (
+            user_id,
+            collection_id,
+            collection_name,
+            collection_desc,
+            permission,
+            is_default,
+            subscribe_count,
+            article_count,
+            create_time,
+            update_time
+         )
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.userId},#{item.collectionId},#{item.collectionName},#{item.collectionDesc},
+             #{item.permission},#{item.isDefault},0,0,now(),now())
+        </foreach>
+    </insert>
+
 </mapper>

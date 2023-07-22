@@ -60,7 +60,6 @@
         </if>
     </sql>
 
-    <!-- Integer batchDelete(List<Long> idList) -->
     <delete id="batchDelete" parameterType="list">
         delete from data_dict
         where id in
@@ -69,14 +68,12 @@
         </foreach>
     </delete>
 
-    <!-- List<DataDict> queryListByCond(DataDictQueryDTO queryDTO) -->
     <select id="queryListByCond" resultMap="dataDictMap">
         select <include refid="queryColumn"/> from data_dict
         <include refid="whereCondition"/>
         <include refid="orderCondition"/>
     </select>
 
-    <!-- List<DataDict> queryListByPage(DataDictQueryDTO queryDTO) -->
     <select id="queryListByPage" resultMap="dataDictMap">
         select <include refid="queryColumn"/> from data_dict
         <include refid="whereCondition"/>
@@ -84,17 +81,14 @@
         limit #{startRow}, #{pageSize}
     </select>
 
-    <!-- Integer queryPageCount(DataDictQueryDTO queryDTO) -->
     <select id="queryPageCount" resultType="java.lang.Integer">
         select count(*) from data_dict
         <include refid="whereCondition"/>
     </select>
 
-    <!-- Integer batchInsert(@Param("list") List<DataDict> dataDictList) -->
     <insert id="batchInsert" parameterType="list">
     </insert>
 
-    <!-- Integer batchUpdate(@Param("list") List<DataDict> dataDictList) -->
     <update id="batchUpdate" parameterType="list">
     </update>
 
