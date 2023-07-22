@@ -26,6 +26,8 @@
 		<cos.version>5.6.89</cos.version>
 		<email.version>2.6.2</email.version>
 		<kaptcha.version>2.3.2</kaptcha.version>
+		<minio.version>8.3.1</minio.version>
+		<okhttp.version>4.9.2</okhttp.version>
 		<xxl.job.version>2.3.0</xxl.job.version>
 		<mapstruct.version>1.4.2.Final</mapstruct.version>
 	</properties>
@@ -184,6 +186,23 @@
 			<groupId>com.alibaba</groupId>
 			<artifactId>easyexcel</artifactId>
 			<version>${easyexcel.version}</version>
+		</dependency>
+		<!-- minIO对象存储 -->
+		<dependency>
+			<groupId>io.minio</groupId>
+			<artifactId>minio</artifactId>
+			<version>${minio.version}</version>
+		</dependency>
+		<!-- okhttp客户端 连接minIO使用 -->
+		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>okhttp</artifactId>
+			<version>${okhttp.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.4</version>
 		</dependency>
 		<!-- hutool工具类 -->
 		<dependency>

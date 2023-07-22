@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.frankzhou.community.mapper.UserMapper">
+
+    <resultMap id="UserMap" type="com.frankzhou.community.model.entity.User">
+            <id property="id" column="id" jdbcType="BIGINT" javaType="java.lang.Long"/>
+            <result property="username" column="username" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <result property="nickName" column="nick_name" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <result property="password" column="password" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <result property="phone" column="phone" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <result property="avatar" column="avatar" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <result property="gender" column="gender" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <result property="email" column="email" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <result property="openId" column="open_id" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <result property="selfIntroduce" column="self_introduce" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <result property="activeCode" column="active_code" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <result property="activeStatus" column="active_status" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+            <result property="status" column="status" jdbcType="VARCHAR" javaType="java.lang.String"/>
+    </resultMap>
+
+    <sql id="QueryColumn">
+        id,username,nick_name,password,phone,avatar,
+        gender,email,open_id,self_introduce,active_code,active_status,
+        create_time,update_time,status
+    </sql>
+
+</mapper>

@@ -8,7 +8,7 @@ package com.frankzhou.community.common.constant;
  */
 public interface OrderConstant {
 
-    String SORT_ORDER_ASC = "asc";
+    String SORT_ORDER_ASC = "ASC";
 
-    String SORT_ORDER_DESC = "desc";
+    String SORT_ORDER_DESC = "DESC";
 }

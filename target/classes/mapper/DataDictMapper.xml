@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.frankzhou.community.mapper.DataDictMapper">
+
+    <resultMap id="dataDictMap" type="com.frankzhou.community.model.entity.DataDict">
+            <id property="id" column="id" jdbcType="BIGINT" javaType="java.lang.Long"/>
+            <result property="dictType" column="dict_type" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <result property="dictDesc" column="dict_desc" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <result property="paramCode" column="param_code" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <result property="paramValue" column="param_value" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <result property="paramSort" column="param_sort" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <result property="createUser" column="create_user" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <result property="updateUser" column="update_user" jdbcType="VARCHAR" javaType="java.lang.String"/>
+    </resultMap>
+
+    <sql id="queryColumn">
+        id,dict_type,dict_desc,param_code,param_value,param_sort,
+        remark,create_user,update_user
+    </sql>
+
+    <sql id="whereCondition">
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="dictType != null and dictType != ''">
+                and dict_type = #{dictType}
+            </if>
+            <if test="dictDesc != null and dictDesc != ''">
+                and dict_desc = #{dictDesc}
+            </if>
+            <if test="paramCode != null and paramCode != ''">
+                and param_code = #{paramCode}
+            </if>
+            <if test="paramValue != null and paramValue != ''">
+                and param_value = #{paramValue}
+            </if>
+            <if test="paramSort != null and paramSort != ''">
+                and param_sort = #{paramSort}
+            </if>
+            <if test="idList != null and idList.size > 0">
+                id in
+                <foreach collection="idList" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            and status = 'NORMAL'
+        </where>
+    </sql>
+
+    <sql id="orderCondition">
+        <if test="orderBy != null and orderBy != ''">
+            order by #{orderBy}
+            <if test="sort == 'DESC'">
+                DESC
+            </if>
+        </if>
+    </sql>
+
+    <delete id="batchDelete" parameterType="list">
+        delete from data_dict
+        where id in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <select id="queryListByCond" resultMap="dataDictMap">
+        select <include refid="queryColumn"/> from data_dict
+        <include refid="whereCondition"/>
+        <include refid="orderCondition"/>
+    </select>
+
+    <select id="queryListByPage" resultMap="dataDictMap">
+        select <include refid="queryColumn"/> from data_dict
+        <include refid="whereCondition"/>
+        <include refid="orderCondition"/>
+        limit #{startRow}, #{pageSize}
+    </select>
+
+    <select id="queryPageCount" resultType="java.lang.Integer">
+        select count(*) from data_dict
+        <include refid="whereCondition"/>
+    </select>
+
+    <insert id="batchInsert" parameterType="list">
+    </insert>
+
+    <update id="batchUpdate" parameterType="list">
+    </update>
+
+</mapper>

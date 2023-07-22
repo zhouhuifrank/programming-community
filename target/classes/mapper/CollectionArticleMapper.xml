@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.frankzhou.community.mapper.CollectionArticleMapper">
+
+    <resultMap id="collectionArticleMap" type="com.frankzhou.community.model.entity.CollectionArticle">
+            <id property="id" column="id" jdbcType="BIGINT" javaType="java.lang.Long"/>
+            <result property="collectionId" column="collection_id" jdbcType="BIGINT" javaType="java.lang.Long"/>
+            <result property="articleId" column="article_id" jdbcType="BIGINT" javaType="java.lang.Long"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+    </resultMap>
+
+    <sql id="queryColumn">
+        id,collection_id,article_id
+    </sql>
+
+    <sql id="whereCondition">
+        <where>
+            <if test="collectionId != null">
+                and collection_id = #{collectionId}
+            </if>
+            <if test="articleId != null">
+                and article_id = #{articleId}
+            </if>
+        </where>
+    </sql>
+
+    <sql id="orderCondition">
+        <if test="orderBy != null and orderBy != ''">
+            order by #{orderBy}
+            <if test="sort = 'DESC'">
+                DESC
+            </if>
+        </if>
+    </sql>
+
+    <!-- List<CollectionArticle> queryListByCond(CollectionArticleDTO queryDTO) -->
+    <select id="queryListByCond" parameterType="com.frankzhou.community.model.dto.collection.CollectionArticleDTO" resultMap="collectionArticleMap">
+        select <include refid="queryColumn"/>
+        from collection_article
+        <include refid="whereCondition"/>
+        <include refid="orderCondition"/>
+    </select>
+
+    <!-- List<CollectionArticle> queryListByPage(CollectionArticleDTO queryDTO) -->
+    <select id="queryListByPage" parameterType="com.frankzhou.community.model.dto.collection.CollectionArticleDTO" resultMap="collectionArticleMap">
+        select <include refid="queryColumn"/>
+        from collection_article
+        <include refid="whereCondition"/>
+        <include refid="orderCondition"/>
+        limit #{startRow},#{pageSize}
+    </select>
+
+    <!-- Integer queryPageCount(CollectionArticleDTO queryDTO) -->
+    <select id="queryPageCount" parameterType="com.frankzhou.community.model.dto.collection.CollectionArticleDTO" resultType="java.lang.Integer">
+        select <include refid="queryColumn"/>
+        from collection_article
+        <include refid="whereCondition"/>
+    </select>
+
+    <!-- Integer batchDelete(@Param("list") List<Long> idList) -->
+    <delete id="batchDelete" parameterType="list">
+        delete from collection_article
+        where id in
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <!-- Integer batchInsert(@Param("list") List<CollectionArticle> collectionArticleList) -->
+    <insert id="batchInsert" parameterType="list">
+        insert into
+        collection_article
+        (
+        collection_id,
+        articleId,
+        create_time,
+        update_time
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            #{item.collectionId},#{item.articleId},now(),now()
+        </foreach>
+    </insert>
+
+</mapper>
