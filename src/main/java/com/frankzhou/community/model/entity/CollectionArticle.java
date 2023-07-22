@@ -18,6 +18,9 @@ import java.util.Date;
 @TableName(value ="collection_article")
 @Data
 public class CollectionArticle implements Serializable {
+    @TableField(exist = false)
+    private static final long serialVersionUID = 1L;
+
     /**
      * 自增id
      */
@@ -48,6 +51,4 @@ public class CollectionArticle implements Serializable {
     @TableField(value = "update_time")
     private Date updateTime;
 
-    @TableField(exist = false)
-    private static final long serialVersionUID = 1L;
 }

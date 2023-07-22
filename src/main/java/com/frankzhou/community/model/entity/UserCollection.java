@@ -29,6 +29,12 @@ public class UserCollection extends BaseEntity implements Serializable {
     private Long id;
 
     /**
+     * 用户id
+     */
+    @TableField(value = "user_id")
+    private Long userId;
+
+    /**
      * 收藏夹id
      */
     @TableField(value = "collection_id")
@@ -69,17 +75,5 @@ public class UserCollection extends BaseEntity implements Serializable {
      */
     @TableField(value = "article_count")
     private Integer articleCount;
-
-    /**
-     * 创建时间
-     */
-    @TableField(value = "create_time")
-    private Date createTime;
-
-    /**
-     * 更新时间
-     */
-    @TableField(value = "update_time")
-    private Date updateTime;
 
 }
