@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/programming_community?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://115.159.216.169:3306/programming_community?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: root
     type: com.alibaba.druid.pool.DruidDataSource
@@ -59,3 +59,11 @@ mybatis-plus:
       logic-delete-value: 'DELETED' # 逻辑已删除值(默认为 1)
       logic-not-delete-value: 'NORMAL' # 逻辑未删除值(默认为 0)
   mapper-locations: classpath:mapper/*.xml
+
+oss:
+  enabled: false
+  type: MINIO
+  endpoint: http://115.159.216.169:9000
+  access-key: admin
+  secret-key: monv205850
+  default-bucket-name: test
