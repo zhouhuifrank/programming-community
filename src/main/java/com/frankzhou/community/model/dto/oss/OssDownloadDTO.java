@@ -25,4 +25,6 @@ public class OssDownloadDTO implements Serializable {
     private String bucketName;
 
     private String ossFilePath;
+
+    private String filename;
 }

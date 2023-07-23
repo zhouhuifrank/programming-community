@@ -57,8 +57,14 @@ public class ResultCodeConstant {
     public static final ResultCodeDTO EXCEL_WRITE_ERROR = new ResultCodeDTO(702,"excel write error","excel表格写出错误");
 
     // 权限错误
-
     public static final ResultCodeDTO NO_AUTH_ERROR = new ResultCodeDTO(801,"no auth error","用户没有权限");
+
+    // OSS错误
+    public static final ResultCodeDTO BUCKET_NOT_EXIST_ERROR = new ResultCodeDTO(901,"oss bucket not exist", "存储桶不存在");
+
+    public static final ResultCodeDTO FILE_DOWNLOAD_ERROR = new ResultCodeDTO(902,"file download error", "文件下载失败");
+
+    public static final ResultCodeDTO FILE_PATH_NOT_NULL = new ResultCodeDTO(903, "file path not null", "文件路径不能为空");
 
     ResultCodeConstant() {
     }

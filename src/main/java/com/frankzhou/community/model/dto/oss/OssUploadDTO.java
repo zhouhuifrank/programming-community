@@ -38,5 +38,5 @@ public class OssUploadDTO implements Serializable {
     /**
      * 是否自动生成文件路径
      */
-    private Boolean autoPath = false;
+    private Boolean autoPath = Boolean.FALSE;
 }

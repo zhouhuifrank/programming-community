@@ -3,6 +3,9 @@ package com.frankzhou.community.mapper;
 import com.frankzhou.community.model.entity.OssFile;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @author This.FrankZhou
@@ -13,6 +16,11 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface OssFileMapper extends BaseMapper<OssFile> {
 
+    Integer batchDelete(@Param("list") List<String> filePath);
+
+    Integer batchInvalidate(@Param("list") List<String> filePath);
+
+    List<OssFile> getExpireFileList();
 }
 
 

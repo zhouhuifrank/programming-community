@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.frankzhou.community.mapper.OssFileMapper">
 
-    <resultMap id="BaseResultMap" type="com.frankzhou.community.model.entity.OssFile">
+    <resultMap id="fileMap" type="com.frankzhou.community.model.entity.OssFile">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="userId" column="user_id" jdbcType="BIGINT"/>
             <result property="businessType" column="business_type" jdbcType="INTEGER"/>
@@ -28,5 +28,30 @@
         file_type,file_category,reserve_day,bucket,file_path,file_id,
         file_url,create_time,update_time,status
     </sql>
+
+    <!-- Integer batchDelete(List<String> filePath) -->
+    <delete id="batchDelete" parameterType="java.util.List">
+        delete from oss_file
+        where
+        file_path in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <!-- Integer batchInvalidate(List<String> filePath) -->
+    <update id="batchInvalidate" parameterType="java.util.List">
+        update oss_file
+        set `status` = 'DELETED'
+        where
+        file_path in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <!-- List<OssFile> getExpireFileList() -->
+    <select id="getExpireFileList" resultMap="fileMap">
+    </select>
 
 </mapper>

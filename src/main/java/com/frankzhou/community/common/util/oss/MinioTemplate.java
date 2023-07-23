@@ -3,6 +3,7 @@ package com.frankzhou.community.common.util.oss;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.StrUtil;
+import com.frankzhou.community.common.base.ResultCodeConstant;
 import com.frankzhou.community.common.exception.BusinessException;
 import io.minio.*;
 import io.minio.http.Method;
@@ -100,7 +101,7 @@ public class MinioTemplate {
         }
 
         if (!bucketExist(bucketName)) {
-            throw new BusinessException("存储桶不存在");
+            throw new BusinessException(ResultCodeConstant.BUCKET_NOT_EXIST_ERROR);
         }
 
         try {
@@ -163,11 +164,15 @@ public class MinioTemplate {
         return ossProperties.getEndpoint() + StrUtil.SLASH + bucket + pathFile;
     }
 
-    private String generateFileName(String originalFilename) {
+    public String generateFileName(String originalFilename) {
         String prefix = "uid";
         String uuid = UUID.fastUUID().toString();
         String uuidFilename = prefix + StrUtil.SLASH + uuid + StrUtil.SLASH
                 + DateUtil.format(new Date(),"yyyy-MM-dd") + StrUtil.SLASH + originalFilename;
         return uuidFilename;
+    }
+
+    public String getEndPoint() {
+        return ossProperties.endpoint;
     }
 }
