@@ -31,9 +31,9 @@ public class ThreadPoolConfig implements AsyncConfigurer {
     public static final String MESSAGE_EXECUTOR = "messageExecutor";
 
     /**
-     * 缓存重建线程池
+     * 定时任务专用线程池
      */
-    public static final String CACHE_REBUILD_EXECUTOR = "cacheRebuildExecutor";
+    public static final String TASK_EXECUTOR = "taskExecutor";
 
     @Override
     public Executor getAsyncExecutor() {
@@ -70,13 +70,13 @@ public class ThreadPoolConfig implements AsyncConfigurer {
         return executor;
     }
 
-    @Bean(CACHE_REBUILD_EXECUTOR)
+    @Bean(TASK_EXECUTOR)
     public ThreadPoolTaskExecutor cacheRebuildExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(30);
         executor.setMaxPoolSize(30);
         executor.setQueueCapacity(200);
-        executor.setThreadNamePrefix("cache-rebuild-executor-");
+        executor.setThreadNamePrefix("task-executor-");
         executor.setRejectedExecutionHandler(new ThreadPoolExecutor.DiscardPolicy());
         executor.setThreadFactory(new MyThreadFactory(executor));
         executor.setAwaitTerminationMillis(10000);

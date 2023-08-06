@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.frankzhou.community.mapper.ArticleMapper">
+
+    <resultMap id="articleMap" type="com.frankzhou.community.model.entity.Article">
+            <id property="id" column="id" jdbcType="BIGINT" javaType="java.lang.Long"/>
+            <result property="userId" column="user_id" jdbcType="BIGINT" javaType="java.lang.Long"/>
+            <result property="articleId" column="article_id" jdbcType="BIGINT" javaType="java.lang.Long"/>
+            <result property="title" column="title" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <result property="briefDescription" column="brief_description" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <result property="content" column="content" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <result property="category" column="category" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <result property="tag" column="tag" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <result property="theme" column="theme" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <result property="coverImageUrl" column="cover_image_url" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <result property="articleStatus" column="article_status" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+            <result property="status" column="status" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="queryColumn">
+        id,user_id,article_id,title,brief_description,content,
+        category,tag,theme,cover_image_url,article_status
+    </sql>
+
+    <sql id="whereCondition">
+
+    </sql>
+
+    <sql id="orderCondition">
+    </sql>
+
+
+    <!-- List<DataDict> queryListByCond(ArticleQueryDTO queryDTO) -->
+    <select id="queryListByCond" parameterType="com.frankzhou.community.model.dto.article.ArticleQueryDTO" resultMap="articleMap">
+    </select>
+
+    <!-- List<DataDict> queryListByPage(ArticleQueryDTO queryDTO) -->
+    <select id="queryListByPage" parameterType="com.frankzhou.community.model.dto.article.ArticleQueryDTO" resultMap="articleMap">
+    </select>
+
+    <!-- Integer queryPageCount(ArticleQueryDTO queryDTO) -->
+    <select id="queryPageCount" parameterType="com.frankzhou.community.model.dto.article.ArticleQueryDTO" resultType="java.lang.Integer">
+    </select>
+
+    <!-- Integer batchDelete(@Param("list") List<Long> idList) -->
+    <delete id="batchDelete" parameterType="list">
+    </delete>
+
+    <!-- Integer batchInsert(@Param("list") List<Article> articleList) -->
+    <insert id="batchInsert" parameterType="list">
+    </insert>
+
+</mapper>

@@ -38,7 +38,7 @@ spring:
     store-type: redis
 
   redis:
-    host: 127.0.0.1
+    host: 115.159.216.169
     port: 6379
     password: monv205850
     database: 0
