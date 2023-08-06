@@ -19,4 +19,6 @@ public class RedisKeys {
     public static final String POST_THUMB_KEY = "post:thumb:";
 
     public static final String POST_FAVOUR_KEY = "post:favour:";
+
+    public static final String TIME_STAMP_KEY = "id:time:stamp";
 }
